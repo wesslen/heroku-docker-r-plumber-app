@@ -9,25 +9,22 @@ function(req, res) {
   res
 }
 
-#* Echo back the input
-#* @param msg The message to echo
-#* @get /echo
-function(msg=""){
-  list(msg = paste0("The message is: '", msg, "'"))
-}
-
-#* Plot a histogram
-#* @png
-#* @get /plot
-function(){
-  rand <- rnorm(100)
-  hist(rand)
-}
-
 #* Return the sum of two numbers
-#* @param a The first number to add
-#* @param b The second number to add
-#* @post /sum
-function(a, b){
-  as.numeric(a) + as.numeric(b)
+#* @param stockAllocation Stock allocation
+#* @get /get_returns
+function(stock){
+  df <- read.csv("data/simulated-returns.csv")
+  if(stock==0){
+    s=0
+  } else if(stock==100){
+    s=1
+  } else {
+    s=as.integer(stock)/100
+  }
+
+  samp <- df[df$stockAllocation == s,]
+  samp[sample(nrow(samp), 1), ]
+  #readr::read_csv("data/simulated-returns.csv") %>%
+  #  dplyr::filter(stockAllocation == stock) %>%
+  #  dplyr::sample_n(1)
 }
