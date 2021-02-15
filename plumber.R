@@ -22,7 +22,7 @@ function(stock){
     s=as.integer(stock)/100
   }
 
-  samp <- dplyr::filter(df, stockAllocation == s)
+  samp <- df[df$stockAllocation == s,]
   samp <- samp[sample(nrow(samp), 1), ]
   samp$decile <- as.integer(cut(samp$percrank, c(0,0.2,0.4,0.6,0.8,Inf), 1:5))
   return(samp)

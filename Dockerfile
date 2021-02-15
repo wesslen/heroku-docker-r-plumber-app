@@ -1,7 +1,7 @@
 FROM virtualstaticvoid/heroku-docker-r:plumber
 
 #RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
-RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
+#RUN R -e "install.packages('dplyr',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 RUN R -e "install.packages('feather',dependencies=TRUE, repos='http://cran.rstudio.com/')"
 
 # ONBUILD will copy application files into the container
