@@ -23,7 +23,9 @@ function(stock){
   }
 
   samp <- df[df$stockAllocation == s,]
-  samp[sample(nrow(samp), 1), ]
+  samp <- samp[sample(nrow(samp), 1), ]
+  samp$decile <- as.integer(cut(samp$percrank, c(0,0.2,0.4,0.6,0.8,Inf), 1:5))
+  return(samp)
   #readr::read_csv("data/simulated-returns.csv") %>%
   #  dplyr::filter(stockAllocation == stock) %>%
   #  dplyr::sample_n(1)
