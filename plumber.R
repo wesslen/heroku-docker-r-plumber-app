@@ -13,7 +13,7 @@ function(req, res) {
 #* @param stockAllocation Stock allocation
 #* @get /get_returns
 function(stock){
-  df <- read.csv("data/simulated-returns.csv")
+  df <- feather::read_feather("data/simulated-returns.feather")
   if(stock==0){
     s=0
   } else if(stock==100){
@@ -22,7 +22,7 @@ function(stock){
     s=as.integer(stock)/100
   }
 
-  samp <- df[df$stockAllocation == s,]
+  samp <- dplyr::filter(df, stockAllocation == s)
   samp <- samp[sample(nrow(samp), 1), ]
   samp$decile <- as.integer(cut(samp$percrank, c(0,0.2,0.4,0.6,0.8,Inf), 1:5))
   return(samp)
